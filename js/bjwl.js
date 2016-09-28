@@ -9,6 +9,8 @@ function getRandomInt(min, max) {
 
 // alert(getRandomInt(1, 10));
 
+/*
+
 function getCard(deck) {
     "use strict";
     var cards;
@@ -29,3 +31,5 @@ function getCard(deck) {
         return cards[getRandomInt(0, cards.length - 1)];
     }
 }
+
+*/
