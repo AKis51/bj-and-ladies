@@ -1,6 +1,7 @@
 /*global
 alert, confirm, console, Debug, opera, prompt, WSH
 */
+/*jslint plusplus: true */
 
 function getRandomInt(min, max) {
     "use strict";
@@ -60,13 +61,33 @@ function getCard(deck) {
     return deck[getRandomInt(0, deck.length - 1)];
 }
 
+function pullCardFromDeck(card, deck) {
+    "use strict";
+    var i;
+    for (i = 0; i < deck.length; ++i) {
+        if (deck[i] === card) {
+            deck.splice(i, 1);
+            break;
+        }
+    }
+    return deck;
+}
+
 var deck_size = parseInt(prompt("Какую колоду карт выбираем — 36 карт или 52 карты?"), 10);
 var deck = getDeck(deck_size);
 
 alert("Выбрана колода в " + deck_size + " карты.\r\r" + deck);
 
-var dealer = [getCard(deck)];
-var player = [getCard(deck), getCard(deck)];
+var card;
+var dealer;
+var player = [];
 
-alert(dealer);
-alert(player);
+/*
+// test pullCardFromDeck function
+for (i = 0; i < deck_size; i++) {
+    card = getCard(deck);
+    pullCardFromDeck(card, deck);
+    player.push(card);
+    alert("Карта: " + card + "\r\rИгрок: " + player + "\r\r" + deck);
+}
+*/
