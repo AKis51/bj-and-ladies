@@ -65,3 +65,8 @@ var deck = getDeck(deck_size);
 
 alert("Выбрана колода в " + deck_size + " карты.\r\r" + deck);
 
+var dealer = [getCard(deck)];
+var player = [getCard(deck), getCard(deck)];
+
+alert(dealer);
+alert(player);
