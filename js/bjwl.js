@@ -55,4 +55,7 @@ function getDeck(deck_size) {
     }
 }
 
-alert(getDeck(36));
+var deck_size = parseInt(prompt("Какую колоду карт выбираем — 36 карт или 52 карты?"), 10);
+var deck = getDeck(deck_size);
+
+alert("Выбрана колода в " + deck_size + " карты.\r\r" + deck);
