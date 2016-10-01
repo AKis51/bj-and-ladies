@@ -114,7 +114,7 @@ var deck_size = parseInt(prompt("Какую колоду карт выбирае
 var deck = getDeck(deck_size);
 
 alert("Выбрана колода в " + deck_size + " карты.\r\r" + deck);
-
+/*
 // Раздаем карты дилеру
 var i;
 var card;
@@ -178,7 +178,7 @@ if (getSum(player) === 21) {
 } else if (getSum(player) === getSum(dealer)) {
     alert("Дилер: " + getSum(dealer) + " Игрок: " + getSum(player) + ". Ничья!");
 }
-
+*/
 // alert(getStatus());
 
 /*
