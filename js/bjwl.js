@@ -78,20 +78,20 @@ function getSum(arr) {
     var i, sum = 0;
     // Считаем все карты кроме тузов
     for (i = 0; i < arr.length; i++) {
-        if (arr[i] !== "A") {
-            if (arr[i] === "J" || arr[i] === "Q" || arr[i] === "K") {
+        if (arr[i].charAt(1) !== "A") {
+            if (arr[i].charAt(1) === "J" || arr[i].charAt(1) === "Q" || arr[i].charAt(1) === "K") {
                 sum += 10;
             } else {
-                sum += parseInt(arr[i], 10);
+                sum += parseInt(arr[i].charAt(1), 10);
             }
         }
     }
 
     // Считаем тузы
     for (i = 0; i < arr.length; i++) {
-        if (arr[i] === "A" && sum > 10) {
+        if (arr[i].charAt(1) === "A" && sum > 10) {
             sum += 1;
-        } else if (arr[i] === "A" && sum <= 10) {
+        } else if (arr[i].charAt(1) === "A" && sum <= 10) {
             sum += 11;
         }
     }
@@ -109,10 +109,44 @@ var deck = getDeck(deck_size);
 alert("Выбрана колода в " + deck_size + " карты.\r\r" + deck);
 
 var card;
-var dealer;
-var player = [];
+var dealer = [getCard(deck)];
+// alert(indexOf(dealer));
+alert("Карты дилера: " + dealer + " dealer.charAt(1): " + dealer[0].charAt(1) + " Сумма  = " + getSum(dealer));
+alert("parseInt " + parseInt(dealer, 10));
+var player = [getCard(deck)];
+// alert("Карты игрока: " + player + " Сумма  = " + getSum(player));
 
-alert(getStatus());
+var answer = 0;
+
+do {
+// Сдаём карту игроку либо прекращаем игру
+    if (getSum(player) < 21) {
+
+        answer = prompt(getStatus(dealer, player) + " Хотите ещё карту? 1 - да, иначе - нет");
+
+        if (answer === 1) {
+            player.push(getCard(deck));
+        }
+
+        alert(getStatus(dealer, player));
+    } else {
+        answer = 0;
+    }
+} while (answer === 1);
+
+if (getSum(player) === 21) {
+    alert(getStatus() + " Игрок победил — BlackJack!");
+} else if (getSum(player) > 21) {
+    alert("Дилер: " + getSum(dealer) + " Игрок: " + getSum(player) + " Игрок проиграл — Перебор!");
+} else if (getSum(player) > getSum(dealer)) {
+    alert("Дилер: " + getSum(dealer) + " Игрок: " + getSum(player) + ". Игрок победил!");
+} else if (getSum(player) < getSum(dealer)) {
+    alert("Дилер: " + getSum(dealer) + " Игрок: " + getSum(player) + ". Дилер победил!");
+} else if (getSum(player) === getSum(dealer)) {
+    alert("Дилер: " + getSum(dealer) + " Игрок: " + getSum(player) + ". Ничья!");
+}
+
+// alert(getStatus());
 
 /*
 // test pullCardFromDeck function
