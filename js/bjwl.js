@@ -73,6 +73,36 @@ function pullCardFromDeck(card, deck) {
     return deck;
 }
 
+function getSum(arr) {
+    "use strict";
+    var i, sum = 0;
+    // Считаем все карты кроме тузов
+    for (i = 0; i < arr.length; i++) {
+        if (arr[i] !== "A") {
+            if (arr[i] === "J" || arr[i] === "Q" || arr[i] === "K") {
+                sum += 10;
+            } else {
+                sum += parseInt(arr[i], 10);
+            }
+        }
+    }
+
+    // Считаем тузы
+    for (i = 0; i < arr.length; i++) {
+        if (arr[i] === "A" && sum > 10) {
+            sum += 1;
+        } else if (arr[i] === "A" && sum <= 10) {
+            sum += 11;
+        }
+    }
+    return sum;
+}
+
+function getStatus(dealer, player) {
+    "use strict";
+    return "Диллер: " + dealer.join(" ") + " Игрок: " + player.join(" ") + ".";
+}
+
 var deck_size = parseInt(prompt("Какую колоду карт выбираем — 36 карт или 52 карты?"), 10);
 var deck = getDeck(deck_size);
 
@@ -81,6 +111,8 @@ alert("Выбрана колода в " + deck_size + " карты.\r\r" + deck)
 var card;
 var dealer;
 var player = [];
+
+alert(getStatus());
 
 /*
 // test pullCardFromDeck function
