@@ -81,6 +81,8 @@ function getSum(arr) {
         if (arr[i].charAt(1) !== "A") {
             if (arr[i].charAt(1) === "J" || arr[i].charAt(1) === "Q" || arr[i].charAt(1) === "K") {
                 sum += 10;
+            } else if (arr[i].charAt(1) === "1" && arr[i].charAt(2) === "0") {
+                sum += 10;
             } else {
                 sum += parseInt(arr[i].charAt(1), 10);
             }
@@ -103,29 +105,49 @@ function getStatus(dealer, player) {
     return "Диллер: " + dealer.join(" ") + " Игрок: " + player.join(" ") + ".";
 }
 
+
+
+// Выбираем колоду - 36 карт или 52
 var deck_size = parseInt(prompt("Какую колоду карт выбираем — 36 карт или 52 карты?"), 10);
+
+// Получаем колоду
 var deck = getDeck(deck_size);
 
 alert("Выбрана колода в " + deck_size + " карты.\r\r" + deck);
 
+// Раздаем карты дилеру
+var i;
 var card;
-var dealer = [getCard(deck)];
-// alert(indexOf(dealer));
-alert("Карты дилера: " + dealer + " dealer.charAt(1): " + dealer[0].charAt(1) + " Сумма  = " + getSum(dealer));
-alert("parseInt " + parseInt(dealer, 10));
-var player = [getCard(deck)];
-// alert("Карты игрока: " + player + " Сумма  = " + getSum(player));
+var dealer = [];
+for (i = 0; i < 1; i++) {
+    card = getCard(deck);
+    deck = pullCardFromDeck(card, deck);
+    dealer.push(card);
+}
 
-var answer = 0;
+// раздаем карты игроку
+var player = [];
+for (i = 0; i < 2; i++) {
+    card = getCard(deck);
+    deck = pullCardFromDeck(card, deck);
+    player.push(card);
+}
 
-do {
-// Сдаём карту игроку либо прекращаем игру
+alert("Карты дилера: " + dealer + " dealer.charAt(1): " + dealer[0].charAt(1) + " Сумма  = " + getSum(dealer) + "\n" +
+      "Карты игрока: " + player + " player.charAt(1): " + player[0].charAt(1) + " Сумма  = " + getSum(player) + "\n");
+
+
+var answer;
+
+do { // Сдаём карту игроку либо прекращаем игру
     if (getSum(player) < 21) {
 
-        answer = prompt(getStatus(dealer, player) + " Хотите ещё карту? 1 - да, иначе - нет");
+        answer = parseInt(prompt(getStatus(dealer, player) + " Хотите ещё карту? 1 - да, иначе - нет"), 10);
 
         if (answer === 1) {
-            player.push(getCard(deck));
+            card = getCard(deck);
+            deck = pullCardFromDeck(card, deck);
+            player.push(card);
         }
 
         alert(getStatus(dealer, player));
@@ -133,6 +155,17 @@ do {
         answer = 0;
     }
 } while (answer === 1);
+
+while (getSum(dealer) < 17) { // Сдаём карты дилеру, если нужно
+    card = getCard(deck);
+    deck = pullCardFromDeck(card, deck);
+    dealer.push(card);
+}
+
+alert(deck);
+
+alert("Карты дилера: " + dealer + " dealer.charAt(1): " + dealer[0].charAt(1) + " Сумма  = " + getSum(dealer) + "\n" +
+      "Карты игрока: " + player + " player.charAt(1): " + player[0].charAt(1) + " Сумма  = " + getSum(player) + "\n");
 
 if (getSum(player) === 21) {
     alert(getStatus() + " Игрок победил — BlackJack!");
