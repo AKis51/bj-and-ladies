@@ -1,5 +1,5 @@
 /*global
-alert, confirm, console, Debug, opera, prompt, WSH
+alert, confirm, console, Debug, opera, prompt, WSH, document
 */
 /*jslint plusplus: true */
 
@@ -108,13 +108,16 @@ function getStatus(dealer, player) {
 
 
 // Выбираем колоду - 36 карт или 52
-var deck_size = parseInt(prompt("Какую колоду карт выбираем — 36 карт или 52 карты?"), 10);
+// var deck_size = parseInt(prompt("Какую колоду карт выбираем — 36 карт или 52 карты?"), 10);
+var deck_size = 52;
 
 // Получаем колоду
 var deck = getDeck(deck_size);
 
-alert("Выбрана колода в " + deck_size + " карты.\r\r" + deck);
-/*
+// alert("Выбрана колода в " + deck_size + " карты.\r\r" + deck);
+
+document.getElementById("deck").innerHTML = deck;
+
 // Раздаем карты дилеру
 var i;
 var card;
@@ -125,6 +128,9 @@ for (i = 0; i < 1; i++) {
     dealer.push(card);
 }
 
+document.getElementById("dealer-cards").innerHTML = dealer;
+
+
 // раздаем карты игроку
 var player = [];
 for (i = 0; i < 2; i++) {
@@ -133,6 +139,9 @@ for (i = 0; i < 2; i++) {
     player.push(card);
 }
 
+document.getElementById("player-cards").innerHTML = player;
+
+/*
 alert("Карты дилера: " + dealer + " dealer.charAt(1): " + dealer[0].charAt(1) + " Сумма  = " + getSum(dealer) + "\n" +
       "Карты игрока: " + player + " player.charAt(1): " + player[0].charAt(1) + " Сумма  = " + getSum(player) + "\n");
 
